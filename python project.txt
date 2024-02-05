@@ -1,0 +1,459 @@
+Project:
+
+1.School Management System:
+     #a.teacher-tables-s.no,teacherid,teacherName,teacherSalary,teacherjoiningDate.
+     #b.student-tables-s.no,studentid,studentName,pythonMark,MathMark,physicsMark
+          #1.create a students
+          #2.read a students
+          #3.update a students
+          #4.delete a students
+     #c.principal-tables-s.no,teacherid,teacherName,teacherSalary,teacherjoiningDate.
+     #d.admin-table-s.no,adminid,adminName,adminPassword
+          #1.Admin who can able to create a teacher,student,principal,admin
+
+program:
+
+def main():
+    admins_credentials = {}
+    students_info = []
+    teachers_info = []
+    principal_info = None
+
+    while True:
+        print("\n*** School Management System ***")
+        print("1. Admin")
+        print("2. Teacher")
+        print("3. Student")
+        print("4. Principal")
+        print("5. Exit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == '1':
+            print("\nAdmin :")
+            print("1. Create Admin")
+            print("2. Student Management")
+            print("3. Create Teacher")
+            print("4. Create Principal")
+            print("5. Exit")
+
+            admin_choice = input("Enter your choice: ")
+
+            if admin_choice == '1':
+                admin_id = input("Enter Admin ID: ")
+                password = input("Enter Password: ")
+                admins_credentials[admin_id] = password
+                print("Admin created successfully!\n")
+
+            elif admin_choice == '2':
+                print("\nStudent Management:")
+                print("1. Create Student")
+                print("2. Read Student")
+                print("3. Update Student")
+                print("4. Delete Student")
+                print("5. Exit")
+
+                student_mgmt_choice = input("Enter your choice: ")
+
+                if student_mgmt_choice == '1':
+                    s_no = input("Enter Serial Number: ")
+                    student_id = input("Enter Student ID: ")
+                    student_name = input("Enter Student Name: ")
+                    student_info = {'s_no': s_no, 'student_id': student_id, 'student_name': student_name}
+                    students_info.append(student_info)
+                    print("Student created successfully!\n")
+
+                elif student_mgmt_choice == '2':
+                    student_id = input("Enter Student ID: ")
+                    for student in students_info:
+                        if student['student_id'] == student_id:
+                            print("Student Information:")
+                            print(f"Serial Number: {student['s_no']}\n"
+                                  f"Student ID: {student['student_id']}\n"
+                                  f"Student Name: {student['student_name']}\n")
+                            break
+                    else:
+                        print("Student not found!\n")
+
+                elif student_mgmt_choice == '3':
+                    student_id = input("Enter Student ID: ")
+                    for student in students_info:
+                        if student['student_id'] == student_id:
+                            new_name = input("Enter updated Student Name: ")
+                            student['student_name'] = new_name
+                            print("Student information updated successfully!\n")
+                            break
+                    else:
+                        print("Student not found!\n")
+
+                elif student_mgmt_choice == '4':
+                    student_id = input("Enter Student ID: ")
+                    for student in students_info:
+                        if student['student_id'] == student_id:
+                            students_info.remove(student)
+                            print("Student deleted successfully!\n")
+                            break
+                    else:
+                        print("Student not found!\n")
+
+                elif student_mgmt_choice == '5':
+                    pass
+
+                else:
+                    print("Invalid choice. Please enter a valid option.")
+
+            elif admin_choice == '3':
+                s_no = input("Enter Serial Number: ")
+                teacher_id = input("Enter Teacher ID: ")
+                teacher_name = input("Enter Teacher Name: ")
+                teacher_salary = input("Enter Teacher Salary: ")
+                joining_date = input("Enter Joining Date: ")
+                teacher_info = {'s_no': s_no, 'teacher_id': teacher_id, 'teacher_name': teacher_name,
+                                'teacher_salary': teacher_salary, 'joining_date': joining_date}
+                teachers_info.append(teacher_info)
+                print("Teacher created successfully!\n")
+            elif admin_choice == '4':
+                s_no = input("Enter Serial Number: ")
+                principal_id = input("Enter Principal ID: ")
+                principal_name = input("Enter Principal Name: ")
+                principal_info = {'s_no': s_no, 'principal_id': principal_id, 'principal_name': principal_name}
+                print("Principal created successfully!\n")
+            elif admin_choice == '5':
+                pass
+
+            else:
+                print("Invalid choice. Please enter a valid option.")
+
+        elif choice == '2':
+            print("\nTeacher:")
+            print("1. Create Student Mark")
+            print("2. Exit")
+
+            teacher_choice = input("Enter your choice: ")
+
+            if teacher_choice == '1':
+                student_id = input("Enter Student ID: ")
+                for student in students_info:
+                    if student['student_id'] == student_id:
+                        Python = int(input("Enter Python Mark: "))
+                        Maths = int(input("Enter Maths Mark: "))
+                        Physics = int(input("Enter Physics Mark: "))
+                        student['subjects'] = {'Python': Python,'Maths': Maths,'Physics': Physics}
+                        print("Student Marks created successfully!\n")
+                        break
+                else:
+                    print("Student not found!\n")
+
+            elif teacher_choice == '2':
+                pass
+
+            else:
+                print("Invalid choice. Please enter a valid option.")
+
+        elif choice == '3':
+            print("\nStudent:")
+            print("1. Student Mark")
+            print("2. Exit")
+
+            student_choice = input("Enter your choice: ")
+
+            if student_choice == '1':
+                student_id = input("Enter Student ID: ")
+                for student in students_info:
+                    if student['student_id'] == student_id:
+                        print("Subject-wise Marks:")
+                        for subject, mark in student['subjects'].items():
+                            print(f"{subject} : {mark}")
+                        break
+                else:
+                    print("Student not found!\n")
+
+            elif student_choice == '2':
+                pass
+
+            else:
+                print("Invalid choice. Please enter a valid option.")
+
+        elif choice == '4':
+            print("\nPrincipal:")
+            print("1. Teacher's information")
+            print("2. Exit")
+
+            principal_choice = input("Enter your choice: ")
+
+            if principal_choice == '1':
+                if teachers_info:
+                    print("Teachers Information:")
+                    for teacher in teachers_info:
+                        print(f"Teacher ID: {teacher['teacher_id']}\nTeacher Name: {teacher['teacher_name']}\n"
+                              f"Teacher Salary: {teacher['teacher_salary']}\nJoining Date: {teacher['joining_date']}\n")
+                else:
+                    print("No teachers information available.\n")
+
+            elif principal_choice == '2':
+                pass
+
+            else:
+                print("Invalid choice. Please enter a valid option.")
+
+        elif choice == '5':
+            print("Thank You :)_")
+            break
+
+        else:
+            print("Invalid choice. Please enter a valid option.")
+
+main()
+
+
+
+
+OUTPUT:
+
+** School Management System ***
+1. Admin
+2. Teacher
+3. Student
+4. Principal
+5. Exit
+Enter your choice: 1
+
+Admin :
+1. Create Admin
+2. Student Management
+3. Create Teacher
+4. Create Principal
+5. Exit
+Enter your choice: 1
+Enter Admin ID: A1
+Enter Password: a
+Admin created successfully!
+
+
+*** School Management System ***
+1. Admin
+2. Teacher
+3. Student
+4. Principal
+5. Exit
+Enter your choice: 1
+
+Admin :
+1. Create Admin
+2. Student Management
+3. Create Teacher
+4. Create Principal
+5. Exit
+Enter your choice: 2
+
+Student Management:
+1. Create Student
+2. Read Student
+3. Update Student
+4. Delete Student
+5. Exit
+Enter your choice: 1
+Enter Serial Number: 01
+Enter Student ID: B1
+Enter Student Name: harsha
+Student created successfully!
+
+*** School Management System ***
+1. Admin
+2. Teacher
+3. Student
+4. Principal
+5. Exit
+Enter your choice: 2
+
+Teacher:
+1. Create Student Mark
+2. Exit
+Enter your choice: 1
+Enter Student ID: B1
+Enter Python Mark: 100
+Enter Maths Mark: 90
+Enter Physics Mark: 98
+Student Marks created successfully!
+
+*** School Management System ***
+1. Admin
+2. Teacher
+3. Student
+4. Principal
+5. Exit
+Enter your choice: 3
+
+Student:
+1. Student Mark
+2. Exit
+Enter your choice: 1
+Enter Student ID: B1
+Subject-wise Marks:
+Python : 100
+Maths : 90
+Physics : 98
+
+*** School Management System ***
+1. Admin
+2. Teacher
+3. Student
+4. Principal
+5. Exit
+Enter your choice: 1
+
+Admin :
+1. Create Admin
+2. Student Management
+3. Create Teacher
+4. Create Principal
+5. Exit
+Enter your choice: 3
+Enter Serial Number: 3
+Enter Teacher ID: C1
+Enter Teacher Name: Her
+Enter Teacher Salary: 40,000
+Enter Joining Date: 04.02.24
+Teacher created successfully!
+
+
+*** School Management System ***
+1. Admin
+2. Teacher
+3. Student
+4. Principal
+5. Exit
+Enter your choice: 4
+
+Principal:
+1. Teacher's information
+2. Exit
+Enter your choice: 1
+Teachers Information:
+Teacher ID: C1
+Teacher Name: Her
+Teacher Salary: 40,000
+Joining Date: 04.02.24
+
+
+*** School Management System ***
+1. Admin
+2. Teacher
+3. Student
+4. Principal
+5. Exit
+Enter your choice: 1
+
+Admin :
+1. Create Admin
+2. Student Management
+3. Create Teacher
+4. Create Principal
+5. Exit
+Enter your choice: 4
+Enter Serial Number: 01
+Enter Principal ID: D1
+Enter Principal Name: His
+Principal created successfully!
+
+*** School Management System ***
+1. Admin
+2. Teacher
+3. Student
+4. Principal
+5. Exit
+Enter your choice: 1
+
+Admin :
+1. Create Admin
+2. Student Management
+3. Create Teacher
+4. Create Principal
+5. Exit
+Enter your choice: 2
+
+Student Management:
+1. Create Student
+2. Read Student
+3. Update Student
+4. Delete Student
+5. Exit
+Enter your choice: 2
+Enter Student ID: B1
+Student Information:
+Serial Number: 01
+Student ID: B1
+Student Name: harsha
+
+
+*** School Management System ***
+1. Admin
+2. Teacher
+3. Student
+4. Principal
+5. Exit
+Enter your choice: 1
+
+Admin :
+1. Create Admin
+2. Student Management
+3. Create Teacher
+4. Create Principal
+5. Exit
+Enter your choice: 2
+
+Student Management:
+1. Create Student
+2. Read Student
+3. Update Student
+4. Delete Student
+5. Exit
+Enter your choice: 3
+Enter Student ID: B1
+Enter updated Student Name: P.Harsha                
+Student information updated successfully!
+
+
+*** School Management System ***
+1. Admin
+2. Teacher
+3. Student
+4. Principal
+5. Exit
+Enter your choice: 1
+
+Admin :
+1. Create Admin
+2. Student Management
+3. Create Teacher
+4. Create Principal
+5. Exit
+Enter your choice: 2
+
+Student Management:
+1. Create Student
+2. Read Student
+3. Update Student
+4. Delete Student
+5. Exit
+Enter your choice: 2
+Enter Student ID: B1
+Student Information:
+Serial Number: 01
+Student ID: B1
+Student Name: P.Harsha
+
+
+*** School Management System ***
+1. Admin
+2. Teacher
+3. Student
+4. Principal
+5. Exit
+Enter your choice: 5
+Thank You :)_
+
+
+...Program finished with exit code 0
+Press ENTER to exit console.
+
